@@ -1,6 +1,6 @@
-.globl estado_3
+.globl estado3
 .text
-estado_3 :
+estado3 :
     # Salva o endereco de retorno
     addi $sp, $sp, -4
     sw   $ra, 0($sp)
@@ -34,7 +34,7 @@ acende:
     jal  exibeDireita        # ACENDE o "A"
 
 check_teclado:
-    jal  verificar_a_senha
+    jal  verificarSenha
     # $v0 = 1 se senha correta, 0 caso contrario
     bnez $v0, desativa_alarme
 
