@@ -1,26 +1,28 @@
-.data 
-	tamanho_senha: .word 4
-	
+.globl estado_2
 .text
-.globl imprime2
-imprime2:
+estado_2:
+	#Salva o endereco de retorno
+	addi	$sp, $sp, -4
+	sw		$ra, 0($sp)
 	# Escreve L no display esquerdo 
-    	lw	$t0, tamanho_senha
-    	li	$t1, 0
-#Ler o teclado
+	li		$a0, 0x30
+	jal		exibeEsquerda
+	# 	Apaga o display da direita
+	jal		apagaDireita
+	#Ler o teclado
 leitura:
-	li	$v0, 5
-	syscall
+	jal		aguardarTecla
 	#Verificar as trancas
-	bge $v0, 10, dispara_alarme
-	addi	$t1, $t1, 1
-	addi	$sp, $sp, -4
-	move	$sp, $v0
-	blt   	$t1, $t0, leitura 
+	bge		$v0, 10, dispara_alarme
 	# verificar a senha
-	addi	$sp, $sp, -4
-    move	$sp, $ra
 	jal verificar_a_senha 
+	beqz	$v0, leitura
+	lw		$ra, 0($sp)
+	addi	$sp, $sp, 4
+	jr	$ra
 	
 dispara_alarme: 
-	jal estado_3
+	li		$v0, 3
+	lw		$ra, 0($sp)
+	addi	$sp, $sp, 4
+	jr		$ra
