@@ -1,6 +1,6 @@
-.globl estado_2
+.globl estado2
 .text
-estado_2:
+estado2:
 	#Salva o endereco de retorno
 	addi	$sp, $sp, -4
 	sw		$ra, 0($sp)
@@ -15,7 +15,7 @@ leitura:
 	#Verificar as trancas
 	bge		$v0, 10, dispara_alarme
 	# verificar a senha
-	jal verificar_a_senha 
+	jal verificarSenha
 	beqz	$v0, leitura
 	lw		$ra, 0($sp)
 	addi	$sp, $sp, 4
