@@ -34,7 +34,7 @@ acende:
     jal  exibeDireita        # ACENDE o "A"
 
 check_teclado:
-    jal  aguardarTecla   
+    jal  verificar_a_senha
     # $v0 = 1 se senha correta, 0 caso contrario
     bnez $v0, desativa_alarme
 
